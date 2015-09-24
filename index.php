@@ -2,7 +2,7 @@
 <?php
 if($_POST){
     require('/fpdf/fpdf.php');
-    define("UPLOAD_DIR", "./temp/");
+    define("UPLOAD_DIR", "certificados/");
 
     function getNombres( $file ){
         $arr = array();
@@ -172,7 +172,7 @@ if($_POST){
 
         <div class="container">
             <h1>Generador de certificados</h1>
-            <?php if ($msj) {
+            <?php if (isset($msj)) {
                 echo '<div class="alert alert-success" role="alert">'.$msj.'</div>';
             } ?>
             <div class="row">
@@ -198,7 +198,7 @@ if($_POST){
                                         );
                                         foreach ($arrFormatos as $formato => $medidas) {
                                             echo '<option value="'.$formato.'" data-ancho="'.$medidas[0].'" data-alto="'.$medidas[1].'" ';
-                                            if($formato == $_POST['formato']){
+                                            if(isset($_POST['formato']) && $formato == $_POST['formato']){
                                                 echo 'selected ';
                                             }
                                             echo '>'.$formato.'</option>'."\n";
@@ -213,13 +213,13 @@ if($_POST){
                                     <div class="row">
                                         <div class="col-xs-6">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="ancho" id="ancho" placeholder="ancho" value="<?php echo $_POST['ancho']; ?>">
+                                                <input type="text" class="form-control" name="ancho" id="ancho" placeholder="ancho" value="<?php if(isset($_POST['ancho'])){echo $_POST['ancho'];} ?>">
                                                 <div class="input-group-addon">mm</div>
                                             </div>
                                         </div>
                                         <div class="col-xs-6">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="alto" id="alto" placeholder="alto" value="<?php echo $_POST['alto']; ?>">
+                                                <input type="text" class="form-control" name="alto" id="alto" placeholder="alto" value="<?php if(isset($_POST['alto'])){echo $_POST['alto']; }?>">
                                                 <div class="input-group-addon">mm</div>
                                             </div>
                                         </div>
@@ -241,7 +241,7 @@ if($_POST){
                             <label for="destino">Carpeta destino</label>
                             <div class="input-group">
                                 <div class="input-group-addon">resultado/</div>
-                                <input class="form-control" type="text" name="destino" placeholder="" value="<?php echo $_POST['destino'] ?>">
+                                <input class="form-control" type="text" name="destino" placeholder="" value="<?php if(isset($_POST['destino'])){ echo $_POST['destino']; }?>">
                             </div>
                         </div>
                     </div>
@@ -258,7 +258,7 @@ if($_POST){
                                         $arrFamilies = array('Arial', 'Times');
                                         foreach ($arrFamilies as $family) {
                                             echo '<option value="'.$family.'" ';
-                                            if($family == $_POST['fontFamily']){
+                                            if(isset($_POST['fontFamily']) && $family == $_POST['fontFamily']){
                                                 echo 'selected ';
                                             }
                                             echo '>'.$family.'</option>'."\n";
@@ -269,7 +269,7 @@ if($_POST){
                                 <div class="col-md-2">
                                     <div class="row">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="fontSize" id="fontSize" placeholder="12" value="<?php echo $_POST['fontSize'] ?>">
+                                            <input type="text" class="form-control" name="fontSize" id="fontSize" placeholder="12" value="<?php if(isset($_POST['fontSize'])){ echo $_POST['fontSize']; }?>">
                                             <div class="input-group-addon">pt</div>
                                         </div>
                                     </div>
@@ -290,13 +290,13 @@ if($_POST){
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="posx" id="posx" placeholder="x" value="<?php echo $_POST['posx'] ?>">
+                                        <input type="text" class="form-control" name="posx" id="posx" placeholder="x" value="<?php if(isset($_POST['posx'])){ echo $_POST['posx']; }?>">
                                         <div class="input-group-addon">mm</div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="posy" id="posy" placeholder="y" value="<?php echo $_POST['posy'] ?>">
+                                        <input type="text" class="form-control" name="posy" id="posy" placeholder="y" value="<?php if(isset($_POST['posy'])){ echo $_POST['posy'];}?>">
                                         <div class="input-group-addon">mm</div>
                                     </div>
                                 </div>
@@ -309,13 +309,13 @@ if($_POST){
                             <label for="unArchivo">Formato de salida</label>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="unArchivo" id="unArchivo" value="1" value="1" <?php if( $_POST['unArchivo'] == '1') echo 'checked' ?>>
+                                    <input type="radio" name="unArchivo" id="unArchivo" value="1" value="1" <?php if(isset($_POST['posy']) && $_POST['unArchivo'] == '1'){ echo 'checked';} ?>>
                                     Agrupar todos los certificados en un archivo
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="unArchivo" id="unArchivo" value="0" <?php if( $_POST['unArchivo'] == '0') echo 'checked' ?>>
+                                    <input type="radio" name="unArchivo" id="unArchivo" value="0" <?php if(isset($_POST['posy']) && $_POST['unArchivo'] == '0'){ echo 'checked';} ?>>
                                     Generar cada certificado en un archivo separado
                                 </label>
                             </div>
